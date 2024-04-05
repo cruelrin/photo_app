@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
+    'photoapp',
     'users',
 ]
 
@@ -123,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = 'user:login'
+LOGIN_REDIRECT_URL = 'photo:home'
+LOGOUT_REDIRECT_URL = LOGIN_URL
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
