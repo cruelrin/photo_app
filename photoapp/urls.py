@@ -2,12 +2,12 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
+from photoapp.views import PhotoListView
 
 app_name = 'photo'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="home.html"), name='home'),
-    # path('', PhotoListView.as_view(), name='list'),
+    path('', PhotoListView.as_view(), name='list'),
 ]
 
 
