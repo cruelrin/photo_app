@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -23,6 +23,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'image']
     template_name = 'photoapp/create.html'
     success_url = reverse_lazy('photo:list')
+
     def form_valid(self, form):
         form.instance.submitter = self.request.user
 
@@ -33,6 +34,7 @@ class UserIsSubmitter(UserPassesTestMixin):
     # Custom method
     def get_photo(self):
         return get_object_or_404(Photo, pk=self.kwargs.get('pk'))
+
     def test_func(self):
         if self.request.user.is_authenticated:
             return self.request.user == self.get_photo().submitter
@@ -52,3 +54,11 @@ class PhotoUpdateView(LoginRequiredMixin, OwnerMixin, UpdateView):
     model = Photo
     fields = ['title', 'description', 'image']
     success_url = reverse_lazy('photo:list')
+
+
+class PhotoDeleteView(PermissionRequiredMixin, DeleteView ):
+    # specify the model you want to use
+    model = Photo
+    success_url = reverse_lazy('photo:list')
+    template_name = 'photoapp/delete.html'
+    permission_required = 'photoapp.can_delete'

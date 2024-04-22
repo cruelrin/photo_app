@@ -7,6 +7,10 @@ class Photo(models.Model):
     image = models.ImageField(upload_to='images/')
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        permissions = [
+            ("can_delete", "Can delete!!!!"),
+        ]
     def __str__(self):
         return self.title
 

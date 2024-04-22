@@ -2,7 +2,7 @@
 from django.views.generic import TemplateView
 from django.urls import path
 
-from photoapp.views import PhotoListView, PhotoDetailView, PhotoCreateView, PhotoUpdateView
+from photoapp.views import PhotoListView, PhotoDetailView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView
 
 app_name = 'photo'
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('photo/<int:pk>/', PhotoDetailView.as_view(), name='detail'),
     path('photo/create/', PhotoCreateView.as_view(), name='create'),
     path('photo/<int:pk>/update/', PhotoUpdateView.as_view(), name='update'),
+    path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='delete'),
 ]
 
 
